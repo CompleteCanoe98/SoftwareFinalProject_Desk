@@ -1,0 +1,4 @@
+03 - 11 - 25
+Worked collaboritavely with the group to create a repo for our project.
+We implemented a Read Me file with a project Description and agile 
+plan we will attempt to follow.
