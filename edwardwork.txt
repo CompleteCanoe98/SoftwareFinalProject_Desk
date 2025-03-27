@@ -1,0 +1,17 @@
+03 - 12 - 2025
+In this project, we created a basic UI Home Widget for a To-Do List application using Tkinter. 
+The main window includes buttons for creating, deleting, updating, and viewing tasks. 
+Each button is linked to a function that currently prints a message to the console. 
+This setup provides a foundation for further development of the application's functionality.
+
+03 - 26 - 2025
+Today, we significantly improved the To-Do List application by introducing persistent storage 
+using a JSON file. This ensures that all events are saved to a file and automatically loaded 
+when the application starts, preventing data loss between sessions. 
+
+We also implemented full CRUD (Create, Read, Update, Delete) functionality:
+- **View Events**: Users can view a list of all saved events dynamically.
+- **Edit Event**: Users can modify the details of an existing event.
+- **Delete Event**: Users can remove an event from the list.
+These updates make the application more robust, practical, and user-friendly, laying the 
+groundwork for future enhancements such as improved UI, search functionality, and user roles.
