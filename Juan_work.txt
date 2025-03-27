@@ -1,0 +1,8 @@
+03/27 
+I worked on creating the admin and user login
+
+If the correct password for admin is inputed then the user will be loged in as admin and have access to all todo list commands
+
+If the incorrect password was inputed then a widget will pop up and state the password is invalid
+
+If your just a ordinary user then you will only be able to see the to do list
