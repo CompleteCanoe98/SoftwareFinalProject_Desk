@@ -2,3 +2,13 @@
 Worked collaboritavely with the group to create a repo for our project.
 We implemented a Read Me file with a project Description and agile 
 plan we will attempt to follow.
+
+03-25-25
+Created the main front end viewing experience for the user. Displayed the home page that offers
+different function options such as creat an event, delete an event, viewing an event, and editing
+an event. Additionally I worked to begin implemening the actual create function that displays a
+seperate window that asks for user input regarding event details.
+
+03-27-25
+Worked to finish the main functions, specifically delete and edit, focusing on the visual experience
+provided to the user, allowing for ease of usability.
