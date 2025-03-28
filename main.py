@@ -8,6 +8,7 @@ EVENTS_FILE = "events.json"
 
 # A placeholder list to store events
 events = []
+admin = "1235"
 
 # Load events from the JSON file
 def load_events():
@@ -26,7 +27,7 @@ def save_events():
         json.dump(events, file, indent=4)
 
 #### Functions ####
-def execute_input():  # what happens when you press execute
+def execute_input(dropVar):  # what happens when you press execute
     user_input = dropVar.get()
     if user_input == "Create Event":
         create_event()
@@ -227,20 +228,47 @@ def view_events():  # Function to display all events
 # Load events when the application starts
 load_events()
 
-#### Root widgets ####
-root = Tk()
-root.title("Main Window")
+def admin_Login(password):
+    if(password == admin):
+        adminTk.destroy()
+        #### Root widgets ####
+        root = Tk()
+        root.title("Main Window")
 
-label = Label(root, text="Welcome to [Working App Name], please choose which action you want to take:", font=("Arial", 12))
+        label = Label(root, text="Welcome to [Working App Name], please choose which action you want to take:", font=("Arial", 12))
+        label.pack(pady=10)
+
+        dropVar = StringVar()
+        dropVar.set("Choose Action")
+
+        drop_menu = OptionMenu(root, dropVar, "Create Event", "Delete Event", "Edit Event", "View Events")
+        drop_menu.pack(pady=10)
+
+        execute_button = Button(root, text="Submit", command= lambda:execute_input(dropVar))
+        execute_button.pack(pady=10)
+
+        root.mainloop()
+    else:
+        messagebox.showerror("Error", "Invalid password!")
+        
+        
+def destroy_admin():
+    view_events()
+    adminTk.destroy()
+    
+adminTk = Tk()
+adminTk.title("Login")
+
+label = Label(adminTk, text="Admin Login", font=("Arial", 12))
 label.pack(pady=10)
 
-dropVar = StringVar()
-dropVar.set("Choose Action")
+entryLogin = Entry(adminTk)
+entryLogin.pack(pady=10)
 
-drop_menu = OptionMenu(root, dropVar, "Create Event", "Delete Event", "Edit Event", "View Events")
-drop_menu.pack(pady=10)
-
-execute_button = Button(root, text="Submit", command=execute_input)
+execute_button = Button(adminTk, text="Submit", command= lambda:admin_Login(entryLogin.get()))
 execute_button.pack(pady=10)
 
-root.mainloop()
+execute_button = Button(adminTk, text="Continue as User", command= destroy_admin)
+execute_button.pack(pady=10)
+
+adminTk.mainloop()
