@@ -1,0 +1,6 @@
+3/30/2025
+i worked on very basic ui upgrades like length and width of windows and bg and fg color changes
+
+in future i need to make a settings where user can change the bg and fg to what ever they want but both bg and fg can not be the same
+
+i also plan on editing the pictures of the logo just need to figure out how and why i get errors for certain pictures

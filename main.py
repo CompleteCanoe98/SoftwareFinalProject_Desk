@@ -70,26 +70,27 @@ def create_event():  # Function for creating events
 
     createTk = Tk()  # Create a new window for event creation
     createTk.title("Create Event")
-
+    createTk.geometry("300x500+1000+200")
+    createTk.config(bg = 'black')
     # Formatting for create window
-    Label(createTk, text="Name of the Event:").pack(pady=5)
+    Label(createTk, text="Name of the Event:", bg = 'black', fg = 'white').pack(pady=5)
     entryname = Entry(createTk)
     entryname.pack(pady=10)
 
-    Label(createTk, text="Due date of the Event:").pack(pady=5)
+    Label(createTk, text="Due date of the Event:", bg = 'black', fg = 'white').pack(pady=5)
     entrydate = Entry(createTk)
     entrydate.pack(pady=10)
 
-    Label(createTk, text="Current Project Status:").pack(pady=5)
+    Label(createTk, text="Current Project Status:", bg = 'black', fg = 'white').pack(pady=5)
     entryStatus = Entry(createTk)
     entryStatus.pack(pady=10)
 
-    Label(createTk, text="People Involved:").pack(pady=5)
+    Label(createTk, text="People Involved:", bg = 'black', fg = 'white').pack(pady=5)
     entryPeople = Entry(createTk)
     entryPeople.pack(pady=10)
 
     # Save button
-    save_button = Button(createTk, text="Save Event", command=save_event)
+    save_button = Button(createTk, text="Save Event", command=save_event, bg = 'black', fg = 'white')
     save_button.pack(pady=10)
 
     createTk.mainloop()
@@ -111,20 +112,21 @@ def delete_event():  # Function to delete an event
 
     deleteTk = Tk()
     deleteTk.title("Delete Event")
-
+    deleteTk.geometry("300x300+1000+200")
+    deleteTk.config(bg = 'black')
     if events:
         for idx, event in enumerate(events, start=1):
             event_details = f"{idx}. Name: {event['Name']}"
-            Label(deleteTk, text=event_details, wraplength=400, justify=LEFT).pack(pady=5)
+            Label(deleteTk, text=event_details, wraplength=400, justify=LEFT, bg = 'black', fg = 'white').pack(pady=5)
     else:
-        Label(deleteTk, text="No events to display.", font=("Arial", 12)).pack(pady=10)
+        Label(deleteTk, text="No events to display.", font=("Arial", 12), bg = 'black', fg = 'white').pack(pady=10)
     
 
-    Label(deleteTk, text="Enter the event number to delete:").pack(pady=5)
+    Label(deleteTk, text="Enter the event number to delete:", bg = 'black', fg = 'white').pack(pady=5)
     entryIndex = Entry(deleteTk)
     entryIndex.pack(pady=10)
 
-    delete_button = Button(deleteTk, text="Delete", command=delete_selected)
+    delete_button = Button(deleteTk, text="Delete", command=delete_selected, bg = 'black', fg = 'white')
     delete_button.pack(pady=10)
 
     deleteTk.mainloop()
@@ -172,39 +174,40 @@ def edit_event():  # Function to edit an event
     
     editTk = Tk()
     editTk.title("Edit Event")
-
+    editTk.geometry("300x500+1000+200")
+    editTk.config(bg = 'black')
     if events:
         for idx, event in enumerate(events, start=1):
             event_details = f"{idx}. Name: {event['Name']}"
-            Label(editTk, text=event_details, wraplength=400, justify=LEFT).pack(pady=5)
+            Label(editTk, text=event_details, wraplength=400, justify=LEFT, bg = 'black', fg = 'white').pack(pady=5)
     else:
-        Label(editTk, text="No events to display.", font=("Arial", 12)).pack(pady=10)
+        Label(editTk, text="No events to display.", font=("Arial", 12), bg = 'black', fg = 'white').pack(pady=10)
     
 
-    Label(editTk, text="Enter the event number to edit:").pack(pady=5)
+    Label(editTk, text="Enter the event number to edit:", bg = 'black', fg = 'white').pack(pady=5)
     entryIndex = Entry(editTk)
     entryIndex.pack(pady=10)
 
-    load_button = Button(editTk, text="Load Event", command=load_event)
+    load_button = Button(editTk, text="Load Event", command=load_event, bg = 'black', fg = 'white')
     load_button.pack(pady=10)
 
-    Label(editTk, text="Name of the Event:").pack(pady=5)
+    Label(editTk, text="Name of the Event:", bg = 'black', fg = 'white').pack(pady=5)
     entryname = Entry(editTk)
     entryname.pack(pady=10)
 
-    Label(editTk, text="Due date of the Event:").pack(pady=5)
+    Label(editTk, text="Due date of the Event:", bg = 'black', fg = 'white').pack(pady=5)
     entrydate = Entry(editTk)
     entrydate.pack(pady=10)
 
-    Label(editTk, text="Current Project Status:").pack(pady=5)
+    Label(editTk, text="Current Project Status:", bg = 'black', fg = 'white').pack(pady=5)
     entryStatus = Entry(editTk)
     entryStatus.pack(pady=10)
 
-    Label(editTk, text="People Involved:").pack(pady=5)
+    Label(editTk, text="People Involved:", bg = 'black', fg = 'white').pack(pady=5)
     entryPeople = Entry(editTk)
     entryPeople.pack(pady=10)
 
-    save_button = Button(editTk, text="Save Changes", command=save_edited_event)
+    save_button = Button(editTk, text="Save Changes", command=save_edited_event, bg = 'black', fg = 'white')
     save_button.pack(pady=10)
 
     
@@ -214,14 +217,15 @@ def edit_event():  # Function to edit an event
 def view_events():  # Function to display all events
     viewTk = Tk()
     viewTk.title("View Events")
-
+    viewTk.geometry("300x300+1000+200")
+    viewTk.config(bg = 'black')
     # Display events in a list format
     if events:
         for idx, event in enumerate(events, start=1):
             event_details = f"{idx}. Name: {event['Name']}, Due Date: {event['Due Date']}, Status: {event['Status']}, People: {event['People']}"
-            Label(viewTk, text=event_details, wraplength=400, justify=LEFT).pack(pady=5)
+            Label(viewTk, text=event_details, wraplength=400, justify=LEFT, bg = 'black', fg = 'white').pack(pady=5)
     else:
-        Label(viewTk, text="No events to display.", font=("Arial", 12)).pack(pady=10)
+        Label(viewTk, text="No events to display.", font=("Arial", 12), bg = 'black', fg = 'white').pack(pady=10)
 
     viewTk.mainloop()
 
@@ -234,17 +238,20 @@ def admin_Login(password):
         #### Root widgets ####
         root = Tk()
         root.title("Main Window")
+        root.config(bg = 'black',)
 
-        label = Label(root, text="Welcome to [Working App Name], please choose which action you want to take:", font=("Arial", 12))
+        label = Label(root, text="Welcome to [Working App Name], please choose which action you want to take:", font=("Arial", 12), bg = 'black', fg = 'white')
         label.pack(pady=10)
 
         dropVar = StringVar()
         dropVar.set("Choose Action")
+        
 
         drop_menu = OptionMenu(root, dropVar, "Create Event", "Delete Event", "Edit Event", "View Events")
+        drop_menu.config(bg='black',fg = 'white')
         drop_menu.pack(pady=10)
 
-        execute_button = Button(root, text="Submit", command= lambda:execute_input(dropVar))
+        execute_button = Button(root, text="Submit", command= lambda:execute_input(dropVar), bg = 'black', fg = 'white')
         execute_button.pack(pady=10)
 
         root.mainloop()
@@ -258,17 +265,18 @@ def destroy_admin():
     
 adminTk = Tk()
 adminTk.title("Login")
-
-label = Label(adminTk, text="Admin Login", font=("Arial", 12))
+adminTk.geometry("300x200+100+50")
+adminTk.config(bg = "black")
+label = Label(adminTk, text="Admin Login", font=("Arial", 12), bg = 'black', fg = 'white')
 label.pack(pady=10)
 
 entryLogin = Entry(adminTk)
 entryLogin.pack(pady=10)
 
-execute_button = Button(adminTk, text="Submit", command= lambda:admin_Login(entryLogin.get()))
+execute_button = Button(adminTk, text="Submit", command= lambda:admin_Login(entryLogin.get()), bg = 'black', fg = 'white')
 execute_button.pack(pady=10)
 
-execute_button = Button(adminTk, text="Continue as User", command= destroy_admin)
+execute_button = Button(adminTk, text="Continue as User", command= destroy_admin,  bg = 'black', fg = 'white')
 execute_button.pack(pady=10)
 
 adminTk.mainloop()
