@@ -26,7 +26,86 @@ def save_events():
     with open(EVENTS_FILE, "w") as file:
         json.dump(events, file, indent=4)
 
+colorbg = 'white'
+colorfg = 'black'
 #### Functions ####
+def settings():
+    def apply_changes():
+        
+        global colorbg, colorfg
+        colorbg = entrybg.get()
+        colorfg = entryfg.get()
+
+        if colorbg == colorfg:
+            messagebox.showerror("Error", "Background and Font colors cannot be the same!")
+            return
+        settingsTk.config(bg=colorbg)
+        for widget in settingsTk.winfo_children():
+            widget.config(bg=colorbg, fg=colorfg)
+        
+        
+        apply_to_all_windows()
+
+        settingsTk.destroy()
+
+    settingsTk = Tk()
+    settingsTk.title("Settings")
+    settingsTk.geometry("250x200+500+100")
+    settingsTk.config(bg=colorbg)
+
+    Label(settingsTk, text="Background color", bg=colorbg, fg=colorfg).pack(pady=5)
+    entrybg = Entry(settingsTk)
+    entrybg.insert(0, colorbg)  # Default background color value
+    entrybg.pack(pady=10)
+
+    Label(settingsTk, text="Font color", bg=colorbg, fg=colorfg).pack(pady=5)
+    entryfg = Entry(settingsTk)
+    entryfg.insert(0, colorfg)  # Default foreground color value
+    entryfg.pack(pady=10)
+
+
+    if colorbg == colorfg:
+        print("color the same")
+        # messagebox.showerror("Error", "Color Cant be the Same!")
+        # entryfg.insert(0, colorfg)
+        # entrybg.insert(0, colorbg)
+    else:
+        Button(settingsTk, text="Apply", command=apply_changes, bg=colorbg, fg=colorfg).pack(pady=10)
+
+    settingsTk.mainloop()
+
+def apply_to_all_windows():
+    # Apply color changes to each window, but check if they exist first
+    if 'root' in globals() and root.winfo_exists():
+        root.config(bg=colorbg)
+        for widget in root.winfo_children():
+            widget.config(bg=colorbg, fg=colorfg)
+
+    if 'adminTk' in globals() and adminTk.winfo_exists():
+        adminTk.config(bg=colorbg)
+        for widget in adminTk.winfo_children():
+            widget.config(bg=colorbg, fg=colorfg)
+
+    if 'createTk' in globals() and createTk.winfo_exists():
+        createTk.config(bg=colorbg)
+        for widget in createTk.winfo_children():
+            widget.config(bg=colorbg, fg=colorfg)
+
+    if 'deleteTk' in globals() and deleteTk.winfo_exists():
+        deleteTk.config(bg=colorbg)
+        for widget in deleteTk.winfo_children():
+            widget.config(bg=colorbg, fg=colorfg)
+
+    if 'editTk' in globals() and editTk.winfo_exists():
+        editTk.config(bg=colorbg)
+        for widget in editTk.winfo_children():
+            widget.config(bg=colorbg, fg=colorfg)
+
+    if 'viewTk' in globals() and viewTk.winfo_exists():
+        viewTk.config(bg=colorbg)
+        for widget in viewTk.winfo_children():
+            widget.config(bg=colorbg, fg=colorfg)
+
 def execute_input(dropVar):  # what happens when you press execute
     user_input = dropVar.get()
     if user_input == "Create Event":
@@ -71,26 +150,26 @@ def create_event():  # Function for creating events
     createTk = Tk()  # Create a new window for event creation
     createTk.title("Create Event")
     createTk.geometry("300x500+1000+200")
-    createTk.config(bg = 'black')
+    createTk.config(bg = colorbg)
     # Formatting for create window
-    Label(createTk, text="Name of the Event:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(createTk, text="Name of the Event:", bg = colorbg, fg = colorfg).pack(pady=5)
     entryname = Entry(createTk)
     entryname.pack(pady=10)
 
-    Label(createTk, text="Due date of the Event:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(createTk, text="Due date of the Event:", bg = colorbg, fg = colorfg).pack(pady=5)
     entrydate = Entry(createTk)
     entrydate.pack(pady=10)
 
-    Label(createTk, text="Current Project Status:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(createTk, text="Current Project Status:", bg = colorbg, fg = colorfg).pack(pady=5)
     entryStatus = Entry(createTk)
     entryStatus.pack(pady=10)
 
-    Label(createTk, text="People Involved:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(createTk, text="People Involved:", bg = colorbg, fg = colorfg).pack(pady=5)
     entryPeople = Entry(createTk)
     entryPeople.pack(pady=10)
 
     # Save button
-    save_button = Button(createTk, text="Save Event", command=save_event, bg = 'black', fg = 'white')
+    save_button = Button(createTk, text="Save Event", command=save_event, bg = colorbg, fg = colorfg)
     save_button.pack(pady=10)
 
     createTk.mainloop()
@@ -113,20 +192,20 @@ def delete_event():  # Function to delete an event
     deleteTk = Tk()
     deleteTk.title("Delete Event")
     deleteTk.geometry("300x300+1000+200")
-    deleteTk.config(bg = 'black')
+    deleteTk.config(bg = colorbg)
     if events:
         for idx, event in enumerate(events, start=1):
             event_details = f"{idx}. Name: {event['Name']}"
-            Label(deleteTk, text=event_details, wraplength=400, justify=LEFT, bg = 'black', fg = 'white').pack(pady=5)
+            Label(deleteTk, text=event_details, wraplength=400, justify=LEFT, bg = colorbg, fg = colorfg).pack(pady=5)
     else:
-        Label(deleteTk, text="No events to display.", font=("Arial", 12), bg = 'black', fg = 'white').pack(pady=10)
+        Label(deleteTk, text="No events to display.", font=("Arial", 12), bg = colorbg, fg = colorfg).pack(pady=10)
     
 
-    Label(deleteTk, text="Enter the event number to delete:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(deleteTk, text="Enter the event number to delete:", bg = colorbg, fg = colorfg).pack(pady=5)
     entryIndex = Entry(deleteTk)
     entryIndex.pack(pady=10)
 
-    delete_button = Button(deleteTk, text="Delete", command=delete_selected, bg = 'black', fg = 'white')
+    delete_button = Button(deleteTk, text="Delete", command=delete_selected, bg = colorbg, fg = colorfg)
     delete_button.pack(pady=10)
 
     deleteTk.mainloop()
@@ -175,39 +254,39 @@ def edit_event():  # Function to edit an event
     editTk = Tk()
     editTk.title("Edit Event")
     editTk.geometry("300x500+1000+200")
-    editTk.config(bg = 'black')
+    editTk.config(bg = colorbg)
     if events:
         for idx, event in enumerate(events, start=1):
             event_details = f"{idx}. Name: {event['Name']}"
-            Label(editTk, text=event_details, wraplength=400, justify=LEFT, bg = 'black', fg = 'white').pack(pady=5)
+            Label(editTk, text=event_details, wraplength=400, justify=LEFT, bg = colorbg, fg = colorfg).pack(pady=5)
     else:
-        Label(editTk, text="No events to display.", font=("Arial", 12), bg = 'black', fg = 'white').pack(pady=10)
+        Label(editTk, text="No events to display.", font=("Arial", 12), bg = colorbg, fg = colorfg).pack(pady=10)
     
 
-    Label(editTk, text="Enter the event number to edit:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(editTk, text="Enter the event number to edit:", bg = colorbg, fg = colorfg).pack(pady=5)
     entryIndex = Entry(editTk)
     entryIndex.pack(pady=10)
 
-    load_button = Button(editTk, text="Load Event", command=load_event, bg = 'black', fg = 'white')
+    load_button = Button(editTk, text="Load Event", command=load_event, bg = colorbg, fg = colorfg)
     load_button.pack(pady=10)
 
-    Label(editTk, text="Name of the Event:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(editTk, text="Name of the Event:", bg = colorbg, fg = colorfg).pack(pady=5)
     entryname = Entry(editTk)
     entryname.pack(pady=10)
 
-    Label(editTk, text="Due date of the Event:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(editTk, text="Due date of the Event:", bg = colorbg, fg = colorfg).pack(pady=5)
     entrydate = Entry(editTk)
     entrydate.pack(pady=10)
 
-    Label(editTk, text="Current Project Status:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(editTk, text="Current Project Status:", bg = colorbg, fg = colorfg).pack(pady=5)
     entryStatus = Entry(editTk)
     entryStatus.pack(pady=10)
 
-    Label(editTk, text="People Involved:", bg = 'black', fg = 'white').pack(pady=5)
+    Label(editTk, text="People Involved:", bg = colorbg, fg = colorfg).pack(pady=5)
     entryPeople = Entry(editTk)
     entryPeople.pack(pady=10)
 
-    save_button = Button(editTk, text="Save Changes", command=save_edited_event, bg = 'black', fg = 'white')
+    save_button = Button(editTk, text="Save Changes", command=save_edited_event, bg = colorbg, fg = colorfg)
     save_button.pack(pady=10)
 
     
@@ -218,14 +297,14 @@ def view_events():  # Function to display all events
     viewTk = Tk()
     viewTk.title("View Events")
     viewTk.geometry("300x300+1000+200")
-    viewTk.config(bg = 'black')
+    viewTk.config(bg = colorbg)
     # Display events in a list format
     if events:
         for idx, event in enumerate(events, start=1):
             event_details = f"{idx}. Name: {event['Name']}, Due Date: {event['Due Date']}, Status: {event['Status']}, People: {event['People']}"
-            Label(viewTk, text=event_details, wraplength=400, justify=LEFT, bg = 'black', fg = 'white').pack(pady=5)
+            Label(viewTk, text=event_details, wraplength=400, justify=LEFT, bg = colorbg, fg = colorfg).pack(pady=5)
     else:
-        Label(viewTk, text="No events to display.", font=("Arial", 12), bg = 'black', fg = 'white').pack(pady=10)
+        Label(viewTk, text="No events to display.", font=("Arial", 12), bg = colorbg, fg = colorfg).pack(pady=10)
 
     viewTk.mainloop()
 
@@ -238,9 +317,9 @@ def admin_Login(password):
         #### Root widgets ####
         root = Tk()
         root.title("Main Window")
-        root.config(bg = 'black',)
+        root.config(bg = colorbg,)
 
-        label = Label(root, text="Welcome to [Working App Name], please choose which action you want to take:", font=("Arial", 12), bg = 'black', fg = 'white')
+        label = Label(root, text="Welcome to [Working App Name], please choose which action you want to take:", font=("Arial", 12), bg = colorbg, fg = colorfg)
         label.pack(pady=10)
 
         dropVar = StringVar()
@@ -248,10 +327,10 @@ def admin_Login(password):
         
 
         drop_menu = OptionMenu(root, dropVar, "Create Event", "Delete Event", "Edit Event", "View Events")
-        drop_menu.config(bg='black',fg = 'white')
+        drop_menu.config(bg=colorbg,fg = colorfg)
         drop_menu.pack(pady=10)
 
-        execute_button = Button(root, text="Submit", command= lambda:execute_input(dropVar), bg = 'black', fg = 'white')
+        execute_button = Button(root, text="Submit", command= lambda:execute_input(dropVar), bg = colorbg, fg = colorfg)
         execute_button.pack(pady=10)
 
         root.mainloop()
@@ -266,17 +345,19 @@ def destroy_admin():
 adminTk = Tk()
 adminTk.title("Login")
 adminTk.geometry("300x200+100+50")
-adminTk.config(bg = "black")
-label = Label(adminTk, text="Admin Login", font=("Arial", 12), bg = 'black', fg = 'white')
+adminTk.config(bg = colorbg)
+label = Label(adminTk, text="Admin Login", font=("Arial", 12), bg = colorbg, fg = colorfg)
 label.pack(pady=10)
 
 entryLogin = Entry(adminTk)
 entryLogin.pack(pady=10)
 
-execute_button = Button(adminTk, text="Submit", command= lambda:admin_Login(entryLogin.get()), bg = 'black', fg = 'white')
+execute_button = Button(adminTk, text="Submit", command= lambda:admin_Login(entryLogin.get()), bg = colorbg, fg = colorfg)
 execute_button.pack(pady=10)
 
-execute_button = Button(adminTk, text="Continue as User", command= destroy_admin,  bg = 'black', fg = 'white')
+execute_button = Button(adminTk, text="Continue as User", command= destroy_admin,  bg = colorbg, fg = colorfg)
 execute_button.pack(pady=10)
 
+execute_button = Button(adminTk, text = "Settings", command =settings,bg = colorbg, fg = colorfg)
+execute_button.pack(pady=10)
 adminTk.mainloop()
