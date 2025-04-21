@@ -1,15 +1,14 @@
 [
     {
-<<<<<<< HEAD
-        "Name": "2",
-        "Due Date": "2",
-        "Status": "322",
-        "People": "2"
-=======
-        "Name": "see TA",
-        "Due Date": "3/27",
-        "Status": "active",
-        "People": "Juan"
->>>>>>> 270a84f5f35831c3851128229ce5b1c5628cc66d
+        "Name": "hellofriend",
+        "Due Date": "now",
+        "Status": "done",
+        "People": "lebron"
+    },
+    {
+        "Name": "Finish Homework",
+        "Due Date": "4-6-25",
+        "Status": "Unstarted",
+        "People": "Nathaniel"
     }
 ]
