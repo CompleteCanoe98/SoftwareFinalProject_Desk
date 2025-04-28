@@ -13,6 +13,7 @@ def setPass():
 
     def confirmPass(ogPass, newPass1, NewPass2):
         global admin
+        load_password()
         if (ogPass != admin):
             messagebox.showwarning("Warning", "Incorrect Previous Password")
         elif (newPass1 != NewPass2):
