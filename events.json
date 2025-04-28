@@ -1,14 +1,8 @@
 [
     {
-        "Name": "hellofriend",
-        "Due Date": "now",
-        "Status": "done",
-        "People": "lebron"
-    },
-    {
         "Name": "Finish Homework",
         "Due Date": "4-6-25",
         "Status": "Unstarted",
-        "People": "Nathaniel"
+        "People": "lebron"
     }
 ]
