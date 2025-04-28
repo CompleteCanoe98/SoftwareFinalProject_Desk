@@ -5,7 +5,51 @@ import json
 # ===== Persistent Storage =====
 EVENTS_FILE = "events.json"
 events = []
-admin = "1235"
+
+PASSWORD_FILE = "password.json"
+admin = "username"
+
+def setPass():
+
+    def confirmPass(ogPass, newPass1, NewPass2):
+        global admin
+        if (ogPass != admin):
+            messagebox.showwarning("Warning", "Incorrect Previous Password")
+        elif (newPass1 != NewPass2):
+            messagebox.showwarning("Warning", "New Passwords don't Match")
+        elif (ogPass == newPass1):
+            messagebox.showwarning("Warning", "New Password must be Different from Old")
+        else:
+            admin = newPass1
+            with open(PASSWORD_FILE, "w") as f:
+                json.dump({"admin": admin}, f)
+            messagebox.showinfo("Success", "Password Successfully Updated!")
+            setPASSTK.destroy()
+            
+            
+
+    setPASSTK = Tk()
+    setPASSTK.title("Set New Password")
+    setPASSTK.geometry("300x300+100+50")
+    setPASSTK.config(bg=colorbg)
+
+    Label(setPASSTK, text="Previous Password:", bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
+    entryOriginalPass = Entry(setPASSTK)
+    entryOriginalPass.pack(pady=5)
+
+    Label(setPASSTK, text="New Password:", bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
+    entryNewPass1 = Entry(setPASSTK)
+    entryNewPass1.pack(pady=5)
+
+    Label(setPASSTK, text="Confirm New Password:", bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
+    entryNewPass2 = Entry(setPASSTK)
+    entryNewPass2.pack(pady=5)
+
+    Button(setPASSTK, text="Submit Password", command=lambda: confirmPass(entryOriginalPass.get(), entryNewPass1.get(), entryNewPass2.get()), bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
+
+    
+    setPASSTK.mainloop()
+
 
 def load_events():
     global events
@@ -14,6 +58,15 @@ def load_events():
             events = json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
         events = []
+
+def load_password():
+    global admin
+    try:
+        with open(PASSWORD_FILE, "r") as f:
+            data = json.load(f)
+            admin = data.get("admin", "username")
+    except (FileNotFoundError, json.JSONDecodeError):
+        admin = "username"
 
 def save_events():
     with open(EVENTS_FILE, "w") as file:
@@ -260,6 +313,7 @@ def destroy_admin():
 
 # ===== App Entry Point =====
 load_events()
+load_password()
 
 adminTk = Tk()
 adminTk.title("Login")
@@ -273,5 +327,6 @@ entryLogin.pack(pady=10)
 Button(adminTk, text="Submit", command=lambda: admin_Login(entryLogin.get()), bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
 Button(adminTk, text="Continue as User", command=destroy_admin, bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
 Button(adminTk, text="Settings", command=settings, bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
+Button(adminTk, text = "Set Password", command = setPass, bg = colorbg, fg = colorfg, font = font_main).pack(pady=5)
 
 adminTk.mainloop()
