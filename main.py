@@ -276,17 +276,42 @@ def view_events():
     global viewTk
     viewTk = Tk()
     viewTk.title("All Events")
-    viewTk.geometry("400x400+1000+200")
+    viewTk.geometry("450x500+1000+200")
     viewTk.config(bg=colorbg)
+
+    frame = Frame(viewTk, bg=colorbg)
+    frame.pack(fill=BOTH, expand=True, padx=10, pady=10)
+
+    canvas = Canvas(frame, bg=colorbg, highlightthickness=0)
+    scrollbar = Scrollbar(frame, orient=VERTICAL, command=canvas.yview)
+    scrollable_frame = Frame(canvas, bg=colorbg)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: canvas.configure(
+            scrollregion=canvas.bbox("all")
+        )
+    )
+
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    canvas.pack(side=LEFT, fill=BOTH, expand=True)
+    scrollbar.pack(side=RIGHT, fill=Y)
 
     if events:
         for i, e in enumerate(events, 1):
-            text = f"{i}. {e['Name']}, Due: {e['Due Date']}, Status: {e['Status']}, People: {e['People']}"
-            Label(viewTk, text=text, bg=colorbg, fg=colorfg, font=font_main, wraplength=350, justify=LEFT).pack(pady=2)
+            Label(scrollable_frame, text=f"Event {i}", font=font_title, bg=colorbg, fg=colorfg).pack(anchor=W, pady=(10, 0))
+            Label(scrollable_frame, text=f"Name: {e['Name']}", bg=colorbg, fg=colorfg, font=font_main, anchor='w', justify=LEFT).pack(anchor=W)
+            Label(scrollable_frame, text=f"Due Date: {e['Due Date']}", bg=colorbg, fg=colorfg, font=font_main, anchor='w', justify=LEFT).pack(anchor=W)
+            Label(scrollable_frame, text=f"Status: {e['Status']}", bg=colorbg, fg=colorfg, font=font_main, anchor='w', justify=LEFT).pack(anchor=W)
+            Label(scrollable_frame, text=f"People: {e['People']}", bg=colorbg, fg=colorfg, font=font_main, anchor='w', justify=LEFT).pack(anchor=W)
+            Label(scrollable_frame, text="-"*60, bg=colorbg, fg=colorfg).pack(anchor=W, pady=(5,0))
     else:
-        Label(viewTk, text="No events found.", bg=colorbg, fg=colorfg, font=font_main).pack(pady=20)
+        Label(scrollable_frame, text="No events found.", bg=colorbg, fg=colorfg, font=font_main).pack(pady=20)
 
     viewTk.mainloop()
+
 
 # ===== Admin/Login Interface =====
 def admin_Login(pwd):
