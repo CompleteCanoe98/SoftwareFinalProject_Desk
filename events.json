@@ -4,5 +4,11 @@
         "Due Date": "4-6-25",
         "Status": "Unstarted",
         "People": "lebron"
+    },
+    {
+        "Name": "finish algorithms hw",
+        "Due Date": "5/14/2025",
+        "Status": "in progress",
+        "People": "me"
     }
 ]

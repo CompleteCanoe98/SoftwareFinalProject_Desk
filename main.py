@@ -10,7 +10,6 @@ PASSWORD_FILE = "password.json"
 admin = "username"
 
 def setPass():
-
     def confirmPass(ogPass, newPass1, NewPass2):
         global admin
         load_password()
@@ -26,8 +25,6 @@ def setPass():
                 json.dump({"admin": admin}, f)
             messagebox.showinfo("Success", "Password Successfully Updated!")
             setPASSTK.destroy()
-            
-            
 
     setPASSTK = Tk()
     setPASSTK.title("Set New Password")
@@ -47,10 +44,7 @@ def setPass():
     entryNewPass2.pack(pady=5)
 
     Button(setPASSTK, text="Submit Password", command=lambda: confirmPass(entryOriginalPass.get(), entryNewPass1.get(), entryNewPass2.get()), bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
-
-    
     setPASSTK.mainloop()
-
 
 def load_events():
     global events
@@ -78,7 +72,6 @@ colorfg = 'black'
 font_main = ("Arial", 11)
 font_title = ("Arial", 13, "bold")
 
-# ===== Settings Window =====
 def settings():
     def apply_changes():
         global colorbg, colorfg
@@ -108,7 +101,6 @@ def settings():
     Button(settingsTk, text="Apply", command=apply_changes, bg=colorbg, fg=colorfg, font=font_main).pack(pady=15)
     settingsTk.mainloop()
 
-# ===== Apply Theme to All Windows =====
 def apply_to_all_windows():
     for window_name in ['root', 'adminTk', 'createTk', 'deleteTk', 'editTk', 'viewTk']:
         if window_name in globals():
@@ -121,7 +113,6 @@ def apply_to_all_windows():
                     except:
                         pass
 
-# ===== Action Dispatcher =====
 def execute_input(dropVar):
     action = dropVar.get()
     if action == "Create Event":
@@ -135,7 +126,6 @@ def execute_input(dropVar):
     else:
         messagebox.showwarning("Warning", "Please select a valid action")
 
-# ===== Create Event =====
 def create_event():
     def save_event():
         name, due, status, people = entryname.get(), entrydate.get(), entryStatus.get(), entryPeople.get()
@@ -172,7 +162,6 @@ def create_event():
     Button(createTk, text="Save Event", command=save_event, bg=colorbg, fg=colorfg, font=font_main).pack(pady=20)
     createTk.mainloop()
 
-# ===== Delete Event =====
 def delete_event():
     def delete_selected():
         try:
@@ -206,7 +195,6 @@ def delete_event():
     Button(deleteTk, text="Delete", command=delete_selected, bg=colorbg, fg=colorfg, font=font_main).pack(pady=10)
     deleteTk.mainloop()
 
-# ===== Edit Event =====
 def edit_event():
     def load_event():
         try:
@@ -271,7 +259,6 @@ def edit_event():
     Button(editTk, text="Save Changes", command=save_changes, bg=colorbg, fg=colorfg, font=font_main).pack(pady=10)
     editTk.mainloop()
 
-# ===== View Events =====
 def view_events():
     global viewTk
     viewTk = Tk()
@@ -288,9 +275,7 @@ def view_events():
 
     scrollable_frame.bind(
         "<Configure>",
-        lambda e: canvas.configure(
-            scrollregion=canvas.bbox("all")
-        )
+        lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
     )
 
     canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
@@ -302,18 +287,35 @@ def view_events():
     if events:
         for i, e in enumerate(events, 1):
             Label(scrollable_frame, text=f"Event {i}", font=font_title, bg=colorbg, fg=colorfg).pack(anchor=W, pady=(10, 0))
-            Label(scrollable_frame, text=f"Name: {e['Name']}", bg=colorbg, fg=colorfg, font=font_main, anchor='w', justify=LEFT).pack(anchor=W)
-            Label(scrollable_frame, text=f"Due Date: {e['Due Date']}", bg=colorbg, fg=colorfg, font=font_main, anchor='w', justify=LEFT).pack(anchor=W)
-            Label(scrollable_frame, text=f"Status: {e['Status']}", bg=colorbg, fg=colorfg, font=font_main, anchor='w', justify=LEFT).pack(anchor=W)
-            Label(scrollable_frame, text=f"People: {e['People']}", bg=colorbg, fg=colorfg, font=font_main, anchor='w', justify=LEFT).pack(anchor=W)
+            Label(scrollable_frame, text=f"Name: {e['Name']}", bg=colorbg, fg=colorfg, font=font_main).pack(anchor=W)
+            Label(scrollable_frame, text=f"Due Date: {e['Due Date']}", bg=colorbg, fg=colorfg, font=font_main).pack(anchor=W)
+            Label(scrollable_frame, text=f"Status: {e['Status']}", bg=colorbg, fg=colorfg, font=font_main).pack(anchor=W)
+            Label(scrollable_frame, text=f"People: {e['People']}", bg=colorbg, fg=colorfg, font=font_main).pack(anchor=W)
             Label(scrollable_frame, text="-"*60, bg=colorbg, fg=colorfg).pack(anchor=W, pady=(5,0))
     else:
         Label(scrollable_frame, text="No events found.", bg=colorbg, fg=colorfg, font=font_main).pack(pady=20)
 
     viewTk.mainloop()
 
+# ===== New logout function =====
+def logout(current_window):
+    current_window.destroy()
+    global adminTk
+    adminTk = Tk()
+    adminTk.title("Login")
+    adminTk.geometry("300x250+100+50")
+    adminTk.config(bg=colorbg)
 
-# ===== Admin/Login Interface =====
+    Label(adminTk, text="Admin Login", font=font_title, bg=colorbg, fg=colorfg).pack(pady=10)
+    entryLogin = Entry(adminTk, show="*")
+    entryLogin.pack(pady=10)
+
+    Button(adminTk, text="Submit", command=lambda: admin_Login(entryLogin.get()), bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
+    Button(adminTk, text="Continue as User", command=destroy_admin, bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
+    Button(adminTk, text="Settings", command=settings, bg=colorbg, fg=colorfg, font=font_main).pack(pady=5)
+    Button(adminTk, text = "Set Password", command = setPass, bg = colorbg, fg = colorfg, font = font_main).pack(pady=5)
+    adminTk.mainloop()
+
 def admin_Login(pwd):
     if pwd == admin:
         adminTk.destroy()
@@ -329,6 +331,7 @@ def admin_Login(pwd):
         OptionMenu(root, dropVar, "Create Event", "Delete Event", "Edit Event", "View Events").pack(pady=10)
 
         Button(root, text="Submit", command=lambda: execute_input(dropVar), bg=colorbg, fg=colorfg, font=font_main).pack(pady=10)
+        Button(root, text="Logout", command=lambda: logout(root), bg=colorbg, fg=colorfg, font=font_main).pack(pady=10)
         root.mainloop()
     else:
         messagebox.showerror("Error", "Invalid password!")
